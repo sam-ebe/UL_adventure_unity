@@ -9,10 +9,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     Vector2 moveDirection = Vector2.zero;
 
-
+    // set up references between scripts
     void Awake()
     {
         playerControls = new PlayerControls();
+    }
+
+    //called after all Awake calls are finished
+    private void Start()
+    {
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -35,16 +40,24 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         moveDirection = playerControls.Player.Move.ReadValue<Vector2>();
-        transform.position = (Vector2)transform.position + moveDirection * speed * Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
-       // rb.linearVelocity = new Vector2(moveDirection.x * speed * Time.deltaTime, moveDirection.y * speed * Time.deltaTime);
+        Vector2 position = (Vector2)transform.position + moveDirection * speed * Time.deltaTime;
+        rb.MovePosition(position);
     }
 
     private void Fire(InputAction.CallbackContext context)
     {
         Debug.Log("Fired");
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("DamageObsctacle"))
+        {
+            Debug.Log("I got hurt !");
+        }
     }
 }
