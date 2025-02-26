@@ -1,0 +1,8 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="HealthBarBackground" style="flex-grow: 0; height: 24%; background-image: url(&quot;project://database/Assets/UnityTechnologies/Final/Art/Ruby/UI/UIHealthFrame.png?fileID=21300000&amp;guid=2e9a3b284be34c14e809fdcd0f799ba1&amp;type=3#UIHealthFrame&quot;); -unity-background-scale-mode: scale-to-fit; background-position-y: top 0; background-position-x: left 0; width: 24%; top: 0; left: 0; position: relative;">
+        <engine:VisualElement name="HealthBarContainer" style="flex-grow: 0; position: absolute; height: 28%; width: 55%; top: 25%; left: 40%; background-position-x: left 0; background-position-y: top 0;">
+            <engine:VisualElement name="HealthBar" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UnityTechnologies/StarterAsset/Art/Ruby/UI/UIHealthBar.png?fileID=21300000&amp;guid=be3322f3a1dbc6e44b25b63f3bb91e16&amp;type=3#UIHealthBar&quot;); height: 100%; width: 100%;" />
+        </engine:VisualElement>
+        <engine:VisualElement name="CharacterPortrait" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UnityTechnologies/StarterAsset/Art/Ruby/UI/CharacterPortrait.png?fileID=21300000&amp;guid=374193bc7008fa34ab9b2bbca376937b&amp;type=3#CharacterPortrait&quot;); -unity-background-scale-mode: scale-to-fit; height: 70%; background-position-x: left 0; background-position-y: top 0; background-size: contain; width: 100%; position: absolute; top: 4%; left: 10%;" />
+    </engine:VisualElement>
+</engine:UXML>
