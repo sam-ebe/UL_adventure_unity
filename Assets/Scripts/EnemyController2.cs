@@ -25,13 +25,11 @@ public class EnemyController2 : MonoBehaviour
         if (target != null)
         {
             positionDelta = Mathf.Abs(target.position.x - transform.position.x);
-            if (positionDelta > 0.1)
+            if (positionDelta > 0.1 || Mathf.Abs(target.position.y - transform.position.y) > 0.1)
             {
-
                 Vector2 direction = (target.position - transform.position).normalized;
                 //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg * 90f;
                 //rb.rotation = angle;
-
                 moveDirection = direction;
             }
         }
@@ -44,5 +42,13 @@ public class EnemyController2 : MonoBehaviour
                 Vector2 direction = (target.position - transform.position).normalized * speed;
                 rb.linearVelocity = new Vector2(moveDirection.x, moveDirection.y) * speed;
         }       
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+        if (player != null)
+        {
+            player.UpdateHealth(-1);
+        }
     }
 }
