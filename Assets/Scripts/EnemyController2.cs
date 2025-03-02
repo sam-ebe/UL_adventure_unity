@@ -7,11 +7,15 @@ public class EnemyController2 : MonoBehaviour
     private Rigidbody2D rb;
     private Transform target;
     private Vector2 moveDirection;
-    private float positionDelta;
+    private float positionXDelta;
+    private float positionYDelta;
+
+    private Animator animator;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
     void Start()
     {
@@ -24,14 +28,14 @@ public class EnemyController2 : MonoBehaviour
 
         if (target != null)
         {
-            positionDelta = Mathf.Abs(target.position.x - transform.position.x);
-            if (positionDelta > 0.1 || Mathf.Abs(target.position.y - transform.position.y) > 0.1)
-            {
-                Vector2 direction = (target.position - transform.position).normalized;
-                //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg * 90f;
-                //rb.rotation = angle;
-                moveDirection = direction;
-            }
+            positionXDelta = target.position.x - transform.position.x;
+            positionYDelta = target.position.y - transform.position.y;
+
+            Vector2 direction = (target.position - transform.position).normalized;
+            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg * 90f;
+            //rb.rotation = angle;
+            moveDirection = direction;
+            
         }
     }
 
@@ -41,6 +45,18 @@ public class EnemyController2 : MonoBehaviour
         {
                 Vector2 direction = (target.position - transform.position).normalized * speed;
                 rb.linearVelocity = new Vector2(moveDirection.x, moveDirection.y) * speed;
+
+            if (Mathf.Abs(positionXDelta) >= Mathf.Abs(positionYDelta))
+            {
+                Debug.Log(moveDirection.x);
+                animator.SetFloat("Move X", moveDirection.x);
+                animator.SetFloat("Move Y", 0);
+            }
+            else
+            {
+                animator.SetFloat("Move X", 0);
+                animator.SetFloat("Move Y", moveDirection.y);
+            }
         }       
     }
     void OnTriggerEnter2D(Collider2D other)
