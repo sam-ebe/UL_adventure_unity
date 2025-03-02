@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
@@ -19,6 +20,9 @@ public class PlayerController : MonoBehaviour
     private InputAction fire;
     private Rigidbody2D rb;
     private Vector2 moveDirection = Vector2.zero;
+    private Vector2 inputDirection = Vector2.zero;
+    private Animator animator;
+    //Vector2 moveDirection = new Vector2(1, 0);
 
     public int health {
         get { 
@@ -35,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         currentHealth = maxHealth;
     }
 
@@ -56,11 +61,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveDirection = playerControls.Player.Move.ReadValue<Vector2>();
+        inputDirection = playerControls.Player.Move.ReadValue<Vector2>();
+
+        if (inputDirection.magnitude > 0)
+        {
+            moveDirection = inputDirection.normalized; // Store last movement direction
+        }
+
+        animator.SetFloat("Move X", moveDirection.x);
+        animator.SetFloat("Move Y", moveDirection.y);
+        animator.SetFloat("Speed", inputDirection.magnitude);
 
         if (isInvincible)
         {
             damageCooldown -= Time.deltaTime;
+
             if (damageCooldown < 0)
             {
                 isInvincible = false;
@@ -74,12 +89,17 @@ public class PlayerController : MonoBehaviour
                 isInHealInterval = false;
             }
         }
+
     }
 
     private void FixedUpdate()
     {
-        Vector2 position = (Vector2)transform.position + moveDirection * speed * Time.deltaTime;
-        rb.MovePosition(position);
+        if (inputDirection.magnitude > 0)
+        {
+            Vector2 position = (Vector2)transform.position + inputDirection * speed * Time.fixedDeltaTime;
+            rb.MovePosition(position);
+        }
+           
     }
 
     private void Fire(InputAction.CallbackContext context)
@@ -97,7 +117,10 @@ public class PlayerController : MonoBehaviour
             }
             isInvincible = true;
             damageCooldown = timeInvincible;
-        } else
+            animator.SetTrigger("Hit");
+
+        } 
+        else
         {
             if (isInHealInterval)
             {

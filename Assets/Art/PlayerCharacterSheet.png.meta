@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: c1dbff5bcb29cdd4bbb8de3a29f2328c
-AssetOrigin:
-  serializedVersion: 1
-  productId: 271239
-  packageName: 'Unity Learn | 2D Beginner: Adventure Game Complete Project | URP'
-  packageVersion: 1.1
-  assetPath: Assets/UnityTechnologies/StarterAsset/Art/Ruby/Characters/PlayerCharacterSheet.png
-  uploadId: 701356
+guid: 56ab064397c0aac4b956f5c439bb4313
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -163,7 +156,7 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
